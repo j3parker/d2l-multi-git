@@ -32,6 +32,10 @@ mgit -cwd 'echo $GIT_DIR' | mgit CMD
 
 Executes `CMD` once for each git repo specified by `stdin`. Silences `stdout` and `stderr` of `CMD`. If `CMD` has a 0 exit code, `$GIT_DIR` is output. The output of this command can thus be passed back into further invocations of `mgit` (see the examples section.)
 
+### `mgit filter -not CMD`
+
+The same as `mgit filter CMD` but instead of looking for a 0 exit code it looks for a non-zero exit code (i.e. failure.)
+
 ### `mgit -cwd filter CMD`
 
 The same as `mgit filter CMD` but rather than taking a list of repos from `stdin` it finds them as immediate subdirectories of the current working directory.
