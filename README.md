@@ -1,6 +1,6 @@
 # d2l-multi-git
 
-A tool for working with multiple git repos at once. Particularly D2L's checkout folder.
+A tool for working with multiple git repos at once. Particularly D2L's checkout folder. It is essentially map (the default) and filter over a collection of repositories.
 
 ## Usage
 
