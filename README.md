@@ -18,7 +18,7 @@ If `CMD` needs to be inside the git repo you can `cd $GIT_REPO` inside `CMD` (bu
 mgit 'cd $GIT_REPO; find -name Foo.cs -type f | xargs rm'
 ```
 
-### `mgit cwd CMD`
+### `mgit -cwd CMD`
 
 Finds all the repos that are immediate subdirectories of the current working directory and executes `CMD` in the same way as the vanilla version above (with the same environment variables.)
 
@@ -32,7 +32,7 @@ mgit cwd 'echo $GIT_DIR' | mgit CMD
 
 Executes `CMD` once for each git repo specified by `stdin`. Silences `stdout` and `stderr` of `CMD`. If `CMD` has a 0 exit code, `$GIT_DIR` is output. The output of this command can thus be passed back into further invocations of `mgit` (see the examples section.)
 
-### `mgit cwd filter CMD`
+### `mgit -cwd filter CMD`
 
 The same as `mgit filter CMD` but rather than taking a list of repos from `stdin` it finds them as immediate subdirectories of the current working directory.
 
@@ -41,41 +41,41 @@ The same as `mgit filter CMD` but rather than taking a list of repos from `stdin
 Print all git repo names:
 
 ```sh
-mgit cwd 'echo $GIT_REPO'
+mgit -cwd 'echo $GIT_REPO'
 ```
 
 Pull every repo:
 
 ```sh
-mgit cwd `git pull origin master`
+mgit -cwd `git pull origin master`
 ```
 
 Print current branch for all repos:
 
 ```sh
-mgit cwd 'echo -n "$GIT_REPO: "; git rev-parse --abbrev-ref HEAD'
+mgit -cwd 'echo -n "$GIT_REPO: "; git rev-parse --abbrev-ref HEAD'
 ```
 
 Reset every repo to updated `origin/master`
 
 ```sh
-mgit cwd 'git fetch origin; git checkout master; git reset --hard origin/master'
+mgit -cwd 'git fetch origin; git checkout master; git reset --hard origin/master'
 ```
 
 Push every repo that has a branch `foo` and open a pull request (requires [Bitbucket CLI tools](http://todo)):
 
 ```sh
-mgit cwd filter 'git rev-parse foo' | mgit 'git push origin foo; stash pull-request foo master'
+mgit -cwd filter 'git rev-parse foo' | mgit 'git push origin foo; stash pull-request foo master'
 ```
 
 Push local branches named `foo` to unique remote branches (to get independent CI runs) and open PRs
 
 ```sh
-mgit cwd filter 'git rev-parse foo' | mgit 'git push origin foo-$MUTLI_GIT_INDEX; stash pull-request foo-$MULTI_GIT_INDEX master'
+mgit -cwd filter 'git rev-parse foo' | mgit 'git push origin foo-$MUTLI_GIT_INDEX; stash pull-request foo-$MULTI_GIT_INDEX master'
 ```
 
 Find every repo that has changed files, create a branch and make a commit:
 
 ```sh
-mgit cwd filter 'git diff-index --quiet HEAD' && mgit 'git checkout -b my-branch; git commit -am "All the changes excluding new files"'
+mgit -cwd filter 'git diff-index --quiet HEAD' && mgit 'git checkout -b my-branch; git commit -am "All the changes excluding new files"'
 ```
