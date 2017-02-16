@@ -12,7 +12,7 @@ Reads a newline-delimited list of git repo dirs (e.g `./foo/bar/.git`) from `std
 * `GIT_DIR`: the original git dir (e.g. `./foo/bar/.git`)
 * `MULTI_GIT_INDEX`: a sequential integer (starting from 0) incremented for each line of input
 
-If `CMD` needs to be inside the git repo you can `cd $GIT_REPO` inside `CMD` (but `git` itself doesn't require this; it will respect the `GIT_DIR` environment variable.)
+If `CMD` needs to be inside the git repo you can `cd $GIT_REPO` inside `CMD` (but `git` itself doesn't require this; it will respect the `GIT_DIR` environment variable.) For example, to delete all files named `Foo.cs` you can do `mgit 'cd $GIT_REPO; find -name Foo.cs -type f | xargs rm'`.
 
 ### `mgit cwd CMD`
 
