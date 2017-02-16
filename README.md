@@ -25,7 +25,7 @@ Finds all the repos that are immediate subdirectories of the current working dir
 This is equivalent but more typing and less efficient:
 
 ```sh
-mgit cwd 'echo $GIT_DIR' | mgit CMD
+mgit -cwd 'echo $GIT_DIR' | mgit CMD
 ```
 
 ### `mgit filter CMD`
