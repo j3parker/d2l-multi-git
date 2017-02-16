@@ -32,3 +32,9 @@ Push every repo that has a branch `foo` and open a pull request (requires [Bitbu
 ```sh
 mgit cwd filter 'git rev-parse foo' | mgit 'git push origin foo; stash pull-request foo master'
 ```
+
+Push local branches named `foo` to unique remote branches (to get independent CI runs) and open PRs
+
+```sh
+mgit cwd filter 'git rev-parse foo' | mgit 'git push origin foo-$MUTLI_GIT_INDEX; stash pull-request foo-$MULTI_GIT_INDEX master'
+```
