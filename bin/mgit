@@ -7,7 +7,12 @@ if [[ "$CMD" == "-cwd" ]]; then
   find . -mindepth 2 -maxdepth 2 -name .git -type d | ./$SELF "${@:2}"
 elif [[ "$CMD" == "filter" ]]; then
   SUBCMD="${@:2}"
-  ./$SELF "$SUBCMD 1>/dev/null 2>/dev/null && echo \$GIT_DIR"
+  OP="&&"
+  if [[ "$2" == "-not" ]]; then
+    SUBCMD="${@:3}"
+    OP="||"
+  fi
+  ./$SELF "$SUBCMD 1>/dev/null 2>/dev/null $OP echo \$GIT_DIR"
 else
   SUBCMD="${@:1}"
 
