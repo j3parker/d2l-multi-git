@@ -3,7 +3,7 @@
 CMD=$1
 SELF=$0
 
-if [[ "$CMD" == "cwd" ]]; then
+if [[ "$CMD" == "-cwd" ]]; then
   find . -mindepth 2 -maxdepth 2 -name .git -type d | ./$SELF "$2" "$3"
 elif [[ "$CMD" == "filter" ]]; then
   SUBCMD=$2
