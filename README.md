@@ -38,3 +38,9 @@ Push local branches named `foo` to unique remote branches (to get independent CI
 ```sh
 mgit cwd filter 'git rev-parse foo' | mgit 'git push origin foo-$MUTLI_GIT_INDEX; stash pull-request foo-$MULTI_GIT_INDEX master'
 ```
+
+Find every repo that has changed files, create a branch and make a commit:
+
+```sh
+mgit cwd filter 'git diff-index --quiet HEAD' && mgit 'git checkout -b my-branch; git commit -am "All the changes excluding new files"'
+```
