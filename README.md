@@ -60,6 +60,12 @@ Print current branch for all repos:
 mgit -cwd 'echo -n "$GIT_REPO: "; git rev-parse --abbrev-ref HEAD'
 ```
 
+Find repos that aren't on the master branch:
+
+```sh
+ mgit -cwd filter -not 'test $(git rev-parse --abbrev-ref HEAD) == master'
+```
+
 Reset every repo to updated `origin/master`
 
 ```sh
