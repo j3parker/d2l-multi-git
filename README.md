@@ -1,5 +1,36 @@
 # d2l-multi-git
-A tool for using D2L's checkout folder (folder of git repos)
+
+A tool for working with multiple git repos at once. Particularly D2L's checkout folder.
+
+## Usage
+
+### `mgit CMD`
+
+Reads a newline-delimited list of git repo dirs (e.g `./foo/bar/.git`) from `stdin` and executes `CMD` once for each of them with the following environment variables:
+
+* `GIT_REPO`: the relative path to the repo (e.g. `foo/bar`)
+* `GIT_DIR`: the original git dir (e.g. `./foo/bar/.git`)
+* `MULTI_GIT_INDEX`: a sequential integer (starting from 0) incremented for each line of input
+
+If `CMD` needs to be inside the git repo you can `cd $GIT_REPO` inside `CMD` (but `git` itself doesn't require this; it will respect the `GIT_DIR` environment variable.)
+
+### `mgit cwd CMD`
+
+Finds all the repos that are immediate subdirectories of the current working directory and executes `CMD` in the same way as the vanilla version above (with the same environment variables.)
+
+This is equivalent but more typing and less efficient:
+
+```sh
+mgit cwd 'echo $GIT_DIR' | mgit CMD
+```
+
+### `mgit filter CMD`
+
+Executes `CMD` once for each git repo specified by `stdin`. Silences `stdout` and `stderr` of `CMD`. If `CMD` has a 0 exit code, `$GIT_DIR` is output. The output of this command can thus be passed back into further invocations of `mgit` (see the examples section.)
+
+### `mgit cwd filter CMD`
+
+The same as `mgit filter CMD` but rather than taking a list of repos from `stdin` it finds them as immediate subdirectories of the current working directory.
 
 ## Examples
 
