@@ -7,5 +7,10 @@ http_archive(
     ],
 )
 
+bind(
+  name = "libuv",
+  actual = "//third_party:libuv"
+)
+
 load("@com_github_nelhage_boost//:boost/boost.bzl", "boost_deps")
 boost_deps()
